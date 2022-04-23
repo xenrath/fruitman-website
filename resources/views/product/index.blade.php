@@ -42,43 +42,56 @@
         </div>
         <div class="card-header">
           <div class="row">
-            <div class="col-6">
+            <div class="col">
               <form action="{{ url('product') }}" method="get">
                 <div class="form-group row mb-0">
-                  <label class="col-3 col-form-label" for="category">Pilih Kategori : </label>
-                  <div class="col-7">
-                    <select class="custom-select" id="category" name="category">
-                      <option value="" {{ Request::get('category') == '' ? 'selected' : null }}>Semua</option>
-                      <option value="Eceran" {{ Request::get('category') == 'Eceran' ? 'selected' : null }}>Eceran
-                      </option>
-                      <option value="Tebasan" {{ Request::get('category') == 'Tebasan' ? 'selected' : null }}>Tebasan
-                      </option>
-                    </select>
+                  <div class="col-12 col-lg-3">
+                    <label class="col-form-label d-none d-xl-block" for="category">Pilih Kategori : </label>
+                    <label class="d-xl-none" for="category">Pilih Kategori : </label>
                   </div>
-                  <div class="col-2">
-                    <button type="submit" class="btn btn-primary">
-                      <span class="fa fa-search"></span>
-                    </button>
+                  <div class="col-12 col-lg-9">
+                    <div class="row">
+                      <div class="col-9">
+                        <select class="custom-select" id="category" name="category">
+                          <option value="" {{ Request::get('category') == '' ? 'selected' : null }}>Semua</option>
+                          <option value="Eceran" {{ Request::get('category') == 'Eceran' ? 'selected' : null }}>Eceran
+                          </option>
+                          <option value="Tebasan" {{ Request::get('category') == 'Tebasan' ? 'selected' : null }}>
+                            Tebasan
+                          </option>
+                        </select>
+                      </div>
+                      <div class="col-2">
+                        <button type="submit" class="btn btn-primary">
+                          <span class="fa fa-search"></span>
+                        </button>
+                      </div>
+                    </div>
                   </div>
                 </div>
               </form>
             </div>
-            <div class="col-6">
+            <div class="col">
               <form action="{{ url('product') }}" method="get">
                 <div class="card-tools">
                   <div class="input-group">
-                    <div class="col-3">
-                      <label class="col-form-label" for="keyword">Cari : </label>
+                    <div class="col-12 col-lg-3">
+                      <label class="col-form-label d-none d-xl-block" for="keyword">Cari : </label>
+                      <label class="d-xl-none" for="keyword">Cari : </label>
                     </div>
-                    <div class="col-7">
-                      <input type="search" class="form-control" name="keyword" id="keyword"
-                        value="{{ Request::get('keyword') }}" autocomplete="off">
-                    </div>
-                    <div class="col-2">
-                      <div class="input-group-append">
-                        <button type="submit" class="btn btn-primary">
-                          <span class="fa fa-search"></span>
-                        </button>
+                    <div class="col-12 col-lg-9">
+                      <div class="row">
+                        <div class="col-9">
+                          <input type="search" class="form-control" name="keyword" id="keyword"
+                            value="{{ Request::get('keyword') }}" autocomplete="off">
+                        </div>
+                        <div class="col-3">
+                          <div class="input-group-append">
+                            <button type="submit" class="btn btn-primary">
+                              <span class="fa fa-search"></span>
+                            </button>
+                          </div>
+                        </div>
                       </div>
                     </div>
                   </div>
@@ -97,8 +110,6 @@
                 <th>Nama</th>
                 <th>Kategori</th>
                 <th>Harga</th>
-                <th>Alamat</th>
-                <th>Stok</th>
                 <th>Action</th>
               </tr>
             </thead>
@@ -109,8 +120,6 @@
                   <td>{{ $product->name }}</td>
                   <td>{{ $product->category }}</td>
                   <td>@rupiah($product->price)</td>
-                  <td>{{ $product->address }}</td>
-                  <td>{{ $product->stock }}</td>
                   <td>
                     <form method="post" action="{{ url('product/' . $product->id) }}"
                       onsubmit="return confirm('Apakah anda yakin akan menghapus data ini?')">
@@ -118,15 +127,15 @@
                       @method('delete')
                       <a class="btn btn-info btn-sm" href="{{ url('product/' . $product->id) }}">
                         <i class="far fa-eye"></i>
-                        Detail
+                        <span class="d-none d-sm-inline d-lg-inline">Detail</span>
                       </a>
                       <a class="btn btn-warning btn-sm" href="{{ url('product/' . $product->id . '/edit') }}">
                         <i class="far fa-edit"></i>
-                        Ubah
+                        <span class="d-none d-sm-inline">Ubah</span>
                       </a>
                       <button type="submit" class="btn btn-danger btn-sm">
                         <i class="far fa-trash-alt"></i>
-                        Hapus
+                        <span class="d-none d-sm-inline">Hapus</span>
                       </button>
                     </form>
                   </td>

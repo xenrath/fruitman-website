@@ -22,6 +22,7 @@ class CreateUsersTable extends Migration
             $table->string('phone')->nullable();
             $table->enum('gender', ['L', 'P'])->nullable();
             $table->string('address')->nullable();
+            $table->string('image')->nullable();
             $table->enum('level', ['Admin', 'Buyer', 'Seller', 'Farmer']);
             $table->string('fcm')->nullable();
             $table->rememberToken();

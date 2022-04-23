@@ -76,7 +76,9 @@ class UserController extends Controller
             'image' => $imageName
         ]));
 
-        return redirect('user')->with('status', 'Berhasil menambahkan User');
+        alert()->success('User berhasil ditambahkan', 'Berhasil');
+
+        return redirect('user');
     }
 
     /**
@@ -122,5 +124,16 @@ class UserController extends Controller
     public function destroy($id)
     {
         
+    }
+
+    public function getCategory($id)
+    {
+        $user = User::where('id', $id)->first();
+        if ($user->level == 'Seller') {
+            $category = ['Eceran' => 'Eceran'];
+        } else {
+            $category = ['Tebasan' => 'Tebasan'];
+        }
+        return json_encode($category);
     }
 }

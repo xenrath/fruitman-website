@@ -107,9 +107,9 @@ class ProductController extends Controller
             ['latitude' => $product->latitude],
             ['longitude' => $product->longitude],
         ];
-        
+
         $result_lat_long = json_encode($result);
-        
+
         return view('product.show', compact('product', 'result_lat_long'));
     }
 
@@ -149,6 +149,7 @@ class ProductController extends Controller
             'longitude' => 'required',
             'image' => 'sometimes|nullable|image|mimes:jpeg,jpg,png|max:2048'
         ]);
+
         if ($request->image) {
             if ($product->image != 'product.png') {
                 Storage::disk('local')->delete('public/uploads/' . $product->image);
@@ -159,6 +160,7 @@ class ProductController extends Controller
         } else {
             $imageName = $product->image;
         }
+
         Product::where('id', $product->id)
             ->update([
                 'name' => $request->name,
@@ -170,7 +172,8 @@ class ProductController extends Controller
                 'longitude' => $request->longitude,
                 'image' => $imageName,
             ]);
-        return redirect('product')->with('status', 'Produk berhasil diubah');
+
+        return redirect('product');
     }
 
     /**
@@ -184,25 +187,18 @@ class ProductController extends Controller
         if ($product->image != 'product.png') {
             Storage::disk('local')->delete('public/uploads/' . $product->image);
         }
+        
         $product->delete();
-        return redirect('product')->with('status', 'Produk berhasil dihapus');
+        
+        alert()->success('Produk berhasil dihapus', 'Berhasil');
+
+        return redirect('product');
     }
 
     public function getCities($id)
     {
         $city = City::where('province_id', $id)->get();
         return json_encode($city);
-    }
-
-    public function getCategory($id)
-    {
-        $user = User::where('id', $id)->first();
-        if ($user->level == 'Seller') {
-            $category = ['Eceran' => 'Eceran'];
-        } else {
-            $category = ['Tebasan' => 'Tebasan'];
-        }
-        return json_encode($category);
     }
 
     public function getPostalCode($id)

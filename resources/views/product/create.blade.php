@@ -199,10 +199,9 @@
           </div>
           <!-- /.card-body -->
           <div class="card-footer">
-            {{-- <button type="reset" class="btn btn-secondary">
+            <button type="reset" class="btn btn-secondary">
               <i class="fa fa-redo"></i> Reset
-            </button> --}}
-            <a href="{{ url('test') }}">test</a>
+            </button>
             <button type="submit" class="btn btn-success float-right">
               <i class="fa fa-save"></i> Save
             </button>
@@ -227,6 +226,11 @@
                 $('select[name="category"]').append('<option value="' + key + '">' + value +
                   '</option>');
               });
+              if (data['Tebasan']) {
+                $('input[name="stock"]').attr('readonly', 'readonly').val('1');
+              } else {
+                $('input[name="stock"]').removeAttr('readonly').val('');
+              }
             },
           });
         } else {
